@@ -10,11 +10,13 @@ public class Enemy : MonoBehaviour
     public AudioClip ouchAudio;
     public AudioSource audioSource;
     public Transform damagePopupPrefab;
+    Rigidbody2D rb;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public float Health
@@ -49,11 +51,18 @@ public class Enemy : MonoBehaviour
 
     public float health = 1;
 
+    public void HandleKnockback(Vector2 knockbackForce)
+    {
+        rb.AddForce(knockbackForce);
+        print("knockbackForce: " + knockbackForce);
+    }
+
     public void Die()
     {
         // Death animation & sound
         audioSource.PlayOneShot(deathAudio, 0.7F);
         animator.SetTrigger("Dead");
+        rb.simulated = false;
     }
 
     public void DespawnEnemy()

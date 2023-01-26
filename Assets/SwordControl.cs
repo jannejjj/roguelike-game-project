@@ -6,6 +6,7 @@ public class SwordControl : MonoBehaviour
 {
     BoxCollider2D attackCollider;
     PlayerController playerController;
+    public float knockbackForce = 7500f;
 
     private void Start()
     {
@@ -16,14 +17,14 @@ public class SwordControl : MonoBehaviour
     public void AttackRight()
     {
         attackCollider.enabled = true;
-        attackCollider.offset = new Vector2((float)0.17, 0);
+        attackCollider.offset = new Vector2((float)0.17, (float)-0.1);
 
     }
 
     public void AttackLeft()
     {
         attackCollider.enabled = true;
-        attackCollider.offset = new Vector2((float)-0.17, 0);
+        attackCollider.offset = new Vector2((float)-0.17, (float)-0.1);
     }
 
     public void AttackDown()
@@ -55,6 +56,18 @@ public class SwordControl : MonoBehaviour
             {
                 enemy.Health -= Random.Range(0.1f, 0.4f);
             }
+
+            Vector3 playerPosition = gameObject.GetComponentInParent<Transform>().position;
+
+            // Direction between player and enemy
+            Vector2 direction = (Vector2)(other.gameObject.transform.position - playerPosition).normalized;
+
+            // Knockback vector
+            Vector2 knockback = direction * knockbackForce;
+
+            enemy.HandleKnockback(knockback);
+
+
         }
     }
 }
