@@ -13,12 +13,15 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 1f;
     public ContactFilter2D movementFilter;
     public SwordControl swordControl;
+    public Transform damagePopupPrefab;
+    public Transform enemyPrefab;
     Vector2 moveInput;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rigidBody;
-    public Transform damagePopupPrefab;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     Animator animator;
+    int collisionCount;
+
 
     bool moveLocked;
 
@@ -26,13 +29,13 @@ public class PlayerController : MonoBehaviour
     {
         set
         {
-            // Calculate damage to be used in popup
+            // Calculate damage to be used in damage popup
             float damage = health - value;
 
-            // Set new health
+            // Set new health value
             health = value;
 
-            // Damage popup
+            // Create damage popup
             Transform damagePopupTransform = Instantiate(damagePopupPrefab, Vector3.zero, Quaternion.identity);
             DamagePopup popup = damagePopupTransform.GetComponent<DamagePopup>();
             popup.Setup(damage, transform.localPosition);
@@ -52,7 +55,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public float health = 2;
+    public float health = 1;
 
 
     // Start is called before the first frame update
@@ -85,6 +88,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isMoving", false);
             animator.SetInteger("moveDirection", 0);
+            collisionCount = 0;
         }
 
         // Handle directions
@@ -114,7 +118,7 @@ public class PlayerController : MonoBehaviour
             return false;
         }
 
-        int collisionCount = rigidBody.Cast(
+        collisionCount = rigidBody.Cast(
                         direction,
                         movementFilter,
                         castCollisions,
@@ -132,6 +136,12 @@ public class PlayerController : MonoBehaviour
     {
         LockMovement();
         audioSource.PlayOneShot(attackAudio, 0.7F);
+
+        // Prevent attacking through terrain
+        if (collisionCount != 0)
+        {
+            return;
+        }
 
         switch (animator.GetInteger("moveDirection"))
         {
@@ -152,8 +162,8 @@ public class PlayerController : MonoBehaviour
                 break;
 
             default:
-                // If the player is not moving, attack right
-                swordControl.AttackRight();
+                // If the player is not moving, attack down
+                swordControl.AttackDown();
                 break;
         }
     }

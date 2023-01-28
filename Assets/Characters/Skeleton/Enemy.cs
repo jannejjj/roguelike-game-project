@@ -11,13 +11,59 @@ public class Enemy : MonoBehaviour
     public AudioSource audioSource;
     public Transform damagePopupPrefab;
     Rigidbody2D rigidBody;
-    public float knockbackForce = 150f;
+    public float knockbackForce = 500f;
+    public float movementSpeed = 300f;
+    public EnemyAggro aggroArea;
 
-    void Start()
+    private void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (aggroArea.detectedList.Count > 0)
+        {
+            PlayerController player = aggroArea.detectedList[0].GetComponent<PlayerController>();
+
+            Vector2 directionToPlayer = (player.transform.position - gameObject.transform.position).normalized;
+
+            // Player has been detected, move towards it
+            animator.SetBool("isMoving", true);
+            rigidBody.AddForce(directionToPlayer * movementSpeed * Time.fixedDeltaTime);
+
+            // Face the player
+            if (directionToPlayer.x > 0)
+            {
+                animator.SetInteger("MoveDirection", 1);
+            }
+            else if (directionToPlayer.x < 0)
+            {
+                animator.SetInteger("MoveDirection", 2);
+            }
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+        }
+
+        print("RB velocity:" + rigidBody.velocity);
+
+        if (rigidBody.velocity != Vector2.zero)
+        {
+            if (rigidBody.velocity.x > 0)
+            {
+            }
+            else if (rigidBody.velocity.x < 0)
+            {
+            }
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+        }
     }
 
     public float Health
@@ -59,7 +105,7 @@ public class Enemy : MonoBehaviour
         if ((player = collision.collider.GetComponent<PlayerController>()) != null)
         {
             // Damage player
-            player.Health -= Random.Range(0.1f, 0.4f);
+            player.Health -= Random.Range(0.1f, 0.25f);
 
             // Get current position of enemy
             Vector3 enemyPosition = gameObject.GetComponentInParent<Transform>().position;
