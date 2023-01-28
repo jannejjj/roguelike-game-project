@@ -10,13 +10,14 @@ public class Enemy : MonoBehaviour
     public AudioClip ouchAudio;
     public AudioSource audioSource;
     public Transform damagePopupPrefab;
-    Rigidbody2D rb;
+    Rigidbody2D rigidBody;
+    public float knockbackForce = 150f;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        rb = GetComponent<Rigidbody2D>();
+        rigidBody = GetComponent<Rigidbody2D>();
     }
 
     public float Health
@@ -51,9 +52,31 @@ public class Enemy : MonoBehaviour
 
     public float health = 1;
 
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        PlayerController player = collision.collider.GetComponent<PlayerController>();
+
+        if ((player = collision.collider.GetComponent<PlayerController>()) != null)
+        {
+            // Damage player
+            player.Health -= Random.Range(0.1f, 0.4f);
+
+            // Get current position of enemy
+            Vector3 enemyPosition = gameObject.GetComponentInParent<Transform>().position;
+
+            // Direction between player and enemy
+            Vector2 direction = (Vector2)(player.gameObject.transform.position - enemyPosition).normalized;
+
+            // Knockback vector
+            Vector2 knockback = direction * knockbackForce;
+
+            player.HandleKnockback(knockback);
+        }
+    }
+
     public void HandleKnockback(Vector2 knockbackForce)
     {
-        rb.AddForce(knockbackForce);
+        rigidBody.AddForce(knockbackForce);
         print("knockbackForce: " + knockbackForce);
     }
 
@@ -62,7 +85,7 @@ public class Enemy : MonoBehaviour
         // Death animation & sound
         audioSource.PlayOneShot(deathAudio, 0.7F);
         animator.SetTrigger("Dead");
-        rb.simulated = false;
+        rigidBody.simulated = false;
     }
 
     public void DespawnEnemy()

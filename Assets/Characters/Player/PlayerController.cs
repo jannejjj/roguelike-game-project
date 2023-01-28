@@ -16,10 +16,43 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rigidBody;
+    public Transform damagePopupPrefab;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     Animator animator;
 
     bool moveLocked;
+
+    public float Health
+    {
+        set
+        {
+            // Calculate damage to be used in popup
+            float damage = health - value;
+
+            // Set new health
+            health = value;
+
+            // Damage popup
+            Transform damagePopupTransform = Instantiate(damagePopupPrefab, Vector3.zero, Quaternion.identity);
+            DamagePopup popup = damagePopupTransform.GetComponent<DamagePopup>();
+            popup.Setup(damage, transform.localPosition);
+
+            // Sound
+            audioSource.PlayOneShot(ouchAudio, 0.7F);
+
+            // Check death
+            if (health <= 0)
+            {
+                Die();
+            }
+        }
+        get
+        {
+            return health;
+        }
+    }
+
+    public float health = 2;
 
 
     // Start is called before the first frame update
@@ -150,4 +183,19 @@ public class PlayerController : MonoBehaviour
     {
         moveLocked = false;
     }
+
+    public void HandleKnockback(Vector2 knockbackForce)
+    {
+        rigidBody.AddForce(knockbackForce);
+        print("knockbackForce (on player): " + knockbackForce);
+    }
+
+    public void Die()
+    {
+        // Death animation & sound
+        audioSource.PlayOneShot(deathAudio, 0.7F);
+        animator.SetTrigger("Dead");
+        rigidBody.simulated = false;
+    }
+
 }

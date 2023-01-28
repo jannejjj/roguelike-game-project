@@ -5,12 +5,10 @@ using UnityEngine;
 public class SwordControl : MonoBehaviour
 {
     BoxCollider2D attackCollider;
-    PlayerController playerController;
-    public float knockbackForce = 7500f;
+    public float knockbackForce = 150f;
 
     private void Start()
     {
-        playerController = GetComponent<PlayerController>();
         attackCollider = GetComponent<BoxCollider2D>();
     }
 
