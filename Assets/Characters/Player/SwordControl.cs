@@ -6,7 +6,8 @@ public class SwordControl : MonoBehaviour
 {
     BoxCollider2D attackCollider;
     public float knockbackForce = 150f;
-
+    public float minDamage = 0.1f;
+    public float maxDamage = 0.4f;
     private void Start()
     {
         attackCollider = GetComponent<BoxCollider2D>();
@@ -52,7 +53,7 @@ public class SwordControl : MonoBehaviour
             Enemy enemy;
             if ((enemy = other.GetComponent<Enemy>()) != null)
             {
-                enemy.Health -= Random.Range(0.1f, 0.4f);
+                enemy.Health -= Random.Range(minDamage, maxDamage);
             }
 
             Vector3 playerPosition = gameObject.GetComponentInParent<Transform>().position;

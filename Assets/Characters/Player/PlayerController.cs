@@ -21,9 +21,8 @@ public class PlayerController : MonoBehaviour
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     Animator animator;
     int collisionCount;
-
-
     bool moveLocked;
+    public float health = 1;
 
     public float Health
     {
@@ -55,9 +54,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public float health = 1;
+    public float score = 0;
+    public float Score
+    {
+        set
+        {
+            score = value;
+        }
+        get
+        {
+            return score;
+        }
+    }
 
-
+    public float coins = 0;
+    public float Coins
+    {
+        set
+        {
+            coins = value;
+        }
+        get
+        {
+            return coins;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {

@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
     Rigidbody2D rigidBody;
     public float knockbackForce = 500f;
     public float movementSpeed = 300f;
+    public float minDamage = 0.1f;
+    public float maxDamage = 0.25f;
     public EnemyAggro aggroArea;
 
     private void Start()
@@ -100,12 +102,12 @@ public class Enemy : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerController player = collision.collider.GetComponent<PlayerController>();
+        PlayerController player;
 
         if ((player = collision.collider.GetComponent<PlayerController>()) != null)
         {
             // Damage player
-            player.Health -= Random.Range(0.1f, 0.25f);
+            player.Health -= Random.Range(minDamage, maxDamage);
 
             // Get current position of enemy
             Vector3 enemyPosition = gameObject.GetComponentInParent<Transform>().position;
@@ -124,6 +126,14 @@ public class Enemy : MonoBehaviour
     {
         rigidBody.AddForce(knockbackForce);
         print("knockbackForce: " + knockbackForce);
+        StartCoroutine(ReduceMovementSpeed(275f, 0.5f));
+    }
+
+    IEnumerator ReduceMovementSpeed(float amount, float seconds)
+    {
+        movementSpeed -= amount;
+        yield return new WaitForSeconds(seconds);
+        movementSpeed += amount;
     }
 
     public void Die()
