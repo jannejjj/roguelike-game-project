@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            animator.SetBool("IsMoving", false);
+            animator.SetBool("isMoving", false);
         }
     }
 

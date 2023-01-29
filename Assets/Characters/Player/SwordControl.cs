@@ -64,8 +64,6 @@ public class SwordControl : MonoBehaviour
             Vector2 knockback = direction * knockbackForce;
 
             enemy.HandleKnockback(knockback);
-
-
         }
     }
 }
