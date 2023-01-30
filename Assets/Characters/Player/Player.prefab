@@ -72,7 +72,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.18, y: 0.2806654}
+  m_Size: {x: 0.12, y: 0.28}
   m_EdgeRadius: 0
 --- !u!1 &4492703554285630247
 GameObject:
@@ -152,7 +152,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1110111796, guid: ce09290e4885bcb4a8feadf69a39f527, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   ouchAudio: {fileID: 0}
   audioSource: {fileID: 0}
   collisionOffset: 0.05
-  movementSpeed: 1
+  movementSpeed: 0.8
   movementFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -277,10 +277,6 @@ MonoBehaviour:
   damagePopupPrefab: {fileID: 7370205340257911172, guid: 8639dffe3f8837c4f972977a3930f932, type: 3}
   uiHealth: {fileID: 6935787066066333371, guid: 32c79555d91b8bd46bc5d8c7d0f6a730, type: 3}
   uiCoins: {fileID: 3239660194153925605, guid: cbd382caefbed904180577a526eca158, type: 3}
-  uiScore: {fileID: 4461141527494759436, guid: 2f454166a987b354580d7bc6e0ebf16a, type: 3}
-  health: 1
-  score: 0
-  coins: 0
 --- !u!95 &8639394335925616158
 Animator:
   serializedVersion: 5

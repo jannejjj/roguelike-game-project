@@ -21,17 +21,17 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 933611471, guid: 600f782a807df9f469a04648d5c657a5, type: 3}
-    - time: 0.071428575
+    - time: 0.0625
       value: {fileID: 834705856, guid: 600f782a807df9f469a04648d5c657a5, type: 3}
-    - time: 0.14285715
+    - time: 0.125
       value: {fileID: -996215632, guid: 600f782a807df9f469a04648d5c657a5, type: 3}
-    - time: 0.21428572
+    - time: 0.1875
       value: {fileID: 1716774437, guid: 600f782a807df9f469a04648d5c657a5, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 14
+  m_SampleRate: 16
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -55,7 +55,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.2857143
+    m_StopTime: 0.25
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -82,7 +82,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.21428572
+  - time: 0.1875
     functionName: EndAttack
     data: 
     objectReferenceParameter: {fileID: 0}

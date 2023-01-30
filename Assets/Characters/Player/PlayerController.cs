@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         set
         {
-            // Calculate damage to be used in damage popup
+            // Calculate damage to be used in popup
             float damage = health - value;
 
             // Set new health value
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
             // Create damage popup
             Transform damagePopupTransform = Instantiate(damagePopupPrefab, Vector3.zero, Quaternion.identity);
             DamagePopup popup = damagePopupTransform.GetComponent<DamagePopup>();
-            popup.Setup(damage, transform.localPosition);
+            popup.Setup(damage, transform.position);
 
             // Sound
             audioSource.PlayOneShot(ouchAudio, 0.7F);

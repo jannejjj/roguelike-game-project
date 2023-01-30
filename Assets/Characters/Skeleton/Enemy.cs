@@ -28,12 +28,14 @@ public class Enemy : MonoBehaviour
     {
         if (aggroArea.detectedList.Count > 0)
         {
+            // The area only detects the player, no need to check here
             PlayerController player = aggroArea.detectedList[0].GetComponent<PlayerController>();
 
+            // Player has been detected, move towards it
             Vector2 directionToPlayer = (player.transform.position - gameObject.transform.position).normalized;
 
-            // Player has been detected, move towards it
             animator.SetBool("isMoving", true);
+
             rigidBody.AddForce(directionToPlayer * movementSpeed * Time.fixedDeltaTime);
 
             // Face the player
