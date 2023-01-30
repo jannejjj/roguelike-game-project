@@ -9,7 +9,6 @@ public class CoinPopup : MonoBehaviour
     private float vanishTimer;
     private Color color;
 
-    // Start is called before the first frame update
     void Awake()
     {
         textMesh = GetComponent<TextMeshPro>();
@@ -18,7 +17,6 @@ public class CoinPopup : MonoBehaviour
 
     public void Setup(int amount, Vector3 coinPosition)
     {
-        // Get dmg float, round to int and set as the text
         textMesh.SetText(amount.ToString());
 
         // initial color

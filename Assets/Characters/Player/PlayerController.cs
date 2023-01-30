@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class PlayerController : MonoBehaviour
     public ContactFilter2D movementFilter;
     public SwordControl swordControl;
     public Transform damagePopupPrefab;
-    public Transform enemyPrefab;
+    public UIHealth uiHealth;
+    public UICoins uiCoins;
     Vector2 moveInput;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rigidBody;
@@ -22,7 +24,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     int collisionCount;
     bool moveLocked;
-    public float health = 1;
+    float health = 1;
 
     public float Health
     {
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
             // Set new health value
             health = value;
+            uiHealth.SetHealth(Mathf.RoundToInt(health * 100).ToString());
 
             // Create damage popup
             Transform damagePopupTransform = Instantiate(damagePopupPrefab, Vector3.zero, Quaternion.identity);
@@ -54,8 +57,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public float score = 0;
-    public float Score
+    int score = 0;
+    public int Score
     {
         set
         {
@@ -67,12 +70,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public float coins = 0;
-    public float Coins
+    int coins = 0;
+    public int Coins
     {
         set
         {
             coins = value;
+            uiCoins.SetCoins(coins.ToString());
         }
         get
         {

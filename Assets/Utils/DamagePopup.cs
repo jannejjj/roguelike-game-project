@@ -9,7 +9,6 @@ public class DamagePopup : MonoBehaviour
     private float vanishTimer;
     private Color color;
 
-    // Start is called before the first frame update
     void Awake()
     {
         textMesh = GetComponent<TextMeshPro>();

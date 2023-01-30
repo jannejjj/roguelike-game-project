@@ -256,7 +256,6 @@ MonoBehaviour:
   attackAudio: {fileID: 0}
   deathAudio: {fileID: 0}
   ouchAudio: {fileID: 0}
-  coinAudio: {fileID: 0}
   audioSource: {fileID: 0}
   collisionOffset: 0.05
   movementSpeed: 1
@@ -276,7 +275,9 @@ MonoBehaviour:
     maxNormalAngle: 0
   swordControl: {fileID: 6868456311996368959}
   damagePopupPrefab: {fileID: 7370205340257911172, guid: 8639dffe3f8837c4f972977a3930f932, type: 3}
-  enemyPrefab: {fileID: 5793030226344190513, guid: 074f348985f79ed41a0a7db16830f898, type: 3}
+  uiHealth: {fileID: 6935787066066333371, guid: 32c79555d91b8bd46bc5d8c7d0f6a730, type: 3}
+  uiCoins: {fileID: 3239660194153925605, guid: cbd382caefbed904180577a526eca158, type: 3}
+  uiScore: {fileID: 4461141527494759436, guid: 2f454166a987b354580d7bc6e0ebf16a, type: 3}
   health: 1
   score: 0
   coins: 0
