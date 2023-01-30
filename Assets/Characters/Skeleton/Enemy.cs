@@ -50,22 +50,6 @@ public class Enemy : MonoBehaviour
         {
             animator.SetBool("isMoving", false);
         }
-
-        print("RB velocity:" + rigidBody.velocity);
-
-        if (rigidBody.velocity != Vector2.zero)
-        {
-            if (rigidBody.velocity.x > 0)
-            {
-            }
-            else if (rigidBody.velocity.x < 0)
-            {
-            }
-        }
-        else
-        {
-            animator.SetBool("isMoving", false);
-        }
     }
 
     public float Health

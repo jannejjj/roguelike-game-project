@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DamagePopup : MonoBehaviour
+public class CoinPopup : MonoBehaviour
 {
     private TextMeshPro textMesh;
     private float vanishTimer;
@@ -16,17 +16,17 @@ public class DamagePopup : MonoBehaviour
     }
 
 
-    public void Setup(float damage, Vector3 enemyPosition)
+    public void Setup(int amount, Vector3 coinPosition)
     {
         // Get dmg float, round to int and set as the text
-        textMesh.SetText((Mathf.RoundToInt(damage * 100)).ToString());
+        textMesh.SetText(amount.ToString());
 
         // initial color
         color = textMesh.color;
 
         vanishTimer = 0.6f;
 
-        transform.localPosition = enemyPosition;
+        transform.localPosition = coinPosition;
     }
 
     private void FixedUpdate()

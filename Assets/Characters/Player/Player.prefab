@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockbackForce: 250
+  minDamage: 0.1
+  maxDamage: 0.4
 --- !u!61 &3951675524191941806
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -254,6 +256,7 @@ MonoBehaviour:
   attackAudio: {fileID: 0}
   deathAudio: {fileID: 0}
   ouchAudio: {fileID: 0}
+  coinAudio: {fileID: 0}
   audioSource: {fileID: 0}
   collisionOffset: 0.05
   movementSpeed: 1
@@ -275,6 +278,8 @@ MonoBehaviour:
   damagePopupPrefab: {fileID: 7370205340257911172, guid: 8639dffe3f8837c4f972977a3930f932, type: 3}
   enemyPrefab: {fileID: 5793030226344190513, guid: 074f348985f79ed41a0a7db16830f898, type: 3}
   health: 1
+  score: 0
+  coins: 0
 --- !u!95 &8639394335925616158
 Animator:
   serializedVersion: 5

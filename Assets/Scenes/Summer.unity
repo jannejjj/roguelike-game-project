@@ -4586,6 +4586,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6930200257425940084, guid: 2bb3443d764cdb44c84460c342655dcc, type: 3}
+      propertyPath: coinPopupPrefab
+      value: 
+      objectReference: {fileID: 836783662696270583, guid: d3f155fad6430d442962b137a1a956a4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb3443d764cdb44c84460c342655dcc, type: 3}
 --- !u!1001 &4492703553110493607
@@ -4695,6 +4699,10 @@ PrefabInstance:
       propertyPath: m_LinearDrag
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 5092725182243687684, guid: d1da0c7a6cceb7c4291dcf542ad3f4e3, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6868456311996368959, guid: d1da0c7a6cceb7c4291dcf542ad3f4e3, type: 3}
       propertyPath: knockbackForce
       value: 250
@@ -4760,6 +4768,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4690005061051905095, guid: ac344efd2641a7248b269110f74155e1, type: 3}
+      propertyPath: coinLarge
+      value: 
+      objectReference: {fileID: -1046559607, guid: 5fdbabc2d4561e04cbc7f317100d863e, type: 3}
+    - target: {fileID: 4690005061051905095, guid: ac344efd2641a7248b269110f74155e1, type: 3}
+      propertyPath: coinSmall
+      value: 
+      objectReference: {fileID: -1708683006, guid: 5fdbabc2d4561e04cbc7f317100d863e, type: 3}
+    - target: {fileID: 4690005061051905095, guid: ac344efd2641a7248b269110f74155e1, type: 3}
+      propertyPath: coinMedium
+      value: 
+      objectReference: {fileID: 972168923, guid: 5fdbabc2d4561e04cbc7f317100d863e, type: 3}
+    - target: {fileID: 4690005061051905095, guid: ac344efd2641a7248b269110f74155e1, type: 3}
+      propertyPath: coinPopupPrefab
+      value: 
+      objectReference: {fileID: 836783662696270583, guid: d3f155fad6430d442962b137a1a956a4, type: 3}
     - target: {fileID: 7233463304722076857, guid: ac344efd2641a7248b269110f74155e1, type: 3}
       propertyPath: m_RootOrder
       value: 9
