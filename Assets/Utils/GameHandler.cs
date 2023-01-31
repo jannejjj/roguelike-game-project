@@ -6,8 +6,9 @@ using UnityEngine;
 public class GameHandler : MonoBehaviour
 {
     public Transform enemyPrefab;
-    public Transform lootParent;
-    public Transform enemyParent;
+    public Transform lootHandlerTransform;
+    public Transform enemyHandlerTransform;
+    EnemyHandler enemyHandler;
     public Transform[] coinPrefabs;
     public Transform groundLayer;
     public Transform collisionLayer;
@@ -15,7 +16,7 @@ public class GameHandler : MonoBehaviour
     Tilemap ground;
     Vector3 groundMinCoords;
     Vector3 groundMaxCoords;
-    int enemiesToSpawn = 5;
+    int enemiesToSpawn = 10;
     int coinsToSpawn = 15;
     PlayerController player;
 
@@ -25,6 +26,8 @@ public class GameHandler : MonoBehaviour
         player = GetComponentInChildren<PlayerController>();
         terrainCollider = collisionLayer.GetComponent<TilemapCollider2D>();
         ground = groundLayer.GetComponent<Tilemap>();
+
+        enemyHandler = enemyHandlerTransform.GetComponent<EnemyHandler>();
 
         groundMinCoords = ground.localBounds.min;
         groundMaxCoords = ground.localBounds.max;
@@ -41,7 +44,8 @@ public class GameHandler : MonoBehaviour
 
     void spawnEnemies(int amount)
     {
-        for (int i = 0; i < enemiesToSpawn; i++)
+        for (int i = 0; i < enemiesToSpawn
+        ; i++)
         {
             // Instatiate enemy at random x,y coordinate within the map and place it as a child of the Enemies gameObject
 
@@ -52,7 +56,8 @@ public class GameHandler : MonoBehaviour
             }
 
             Transform enemyTransform = Instantiate(enemyPrefab, randPosition, Quaternion.identity);
-            enemyTransform.parent = enemyParent;
+            enemyTransform.parent = enemyHandlerTransform;
+            enemyHandler.NumberOfEnemies = enemiesToSpawn;
         }
     }
 
@@ -70,7 +75,7 @@ public class GameHandler : MonoBehaviour
             }
 
             Transform coinTransform = Instantiate(coinPrefabs[Mathf.RoundToInt(Random.Range(1, 3))], randPosition, Quaternion.identity);
-            coinTransform.parent = lootParent;
+            coinTransform.parent = lootHandlerTransform;
         }
     }
 

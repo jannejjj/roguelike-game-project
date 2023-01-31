@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    Animator animator;
     public AudioClip attackAudio;
     public AudioClip deathAudio;
     public AudioClip ouchAudio;
     public AudioSource audioSource;
     public Transform damagePopupPrefab;
-    Rigidbody2D rigidBody;
+    public EnemyAggro aggroArea;
     public float knockbackForce = 500f;
     public float movementSpeed = 300f;
     public float minDamage = 0.1f;
     public float maxDamage = 0.25f;
-    public EnemyAggro aggroArea;
+    Rigidbody2D rigidBody;
+    Animator animator;
+    EnemyHandler enemyHandler;
+
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody2D>();
+        enemyHandler = GetComponentInParent<EnemyHandler>();
 
         // Ignore collisions between enemies and loot
         Physics2D.IgnoreLayerCollision(2, 2);
@@ -131,6 +134,7 @@ public class Enemy : MonoBehaviour
         audioSource.PlayOneShot(deathAudio, 0.7F);
         animator.SetTrigger("Dead");
         rigidBody.simulated = false;
+        enemyHandler.NumberOfEnemies -= 1;
     }
 
     public void DespawnEnemy()
