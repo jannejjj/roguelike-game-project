@@ -76,12 +76,16 @@ public class GameHandler : MonoBehaviour
 
     Vector2 GetRandomPosition()
     {
-        return new Vector2(Random.Range(groundMinCoords.x, groundMaxCoords.x), Random.Range(groundMinCoords.y, groundMaxCoords.y));
+        // Get a random position within the level (0.1f margins from edges)
+
+        return new Vector2(Random.Range(groundMinCoords.x + 0.1f, groundMaxCoords.x - 0.1f), Random.Range(groundMinCoords.y + 0.1f, groundMaxCoords.y - 0.1f));
     }
 
     bool IsInsideTerrain(Vector2 point)
     {
-        // If closest point on the terrain collider == point, the analyzed point is inside terrain
-        return terrainCollider.ClosestPoint(point) == point;
+        // If closest point on the terrain collider == point, the analyzed point is inside terrain. (margin of 0.05 from edges of the collider)
+
+        Vector2 closestPoint = terrainCollider.ClosestPoint(point);
+        return (Vector2.Distance(closestPoint, point) < 0.05f);
     }
 }
