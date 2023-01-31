@@ -236,7 +236,6 @@ MonoBehaviour:
   ouchAudio: {fileID: 8300000, guid: f7460856ce2fa084f850cdfd9660085f, type: 3}
   audioSource: {fileID: 0}
   damagePopupPrefab: {fileID: 7370205340257911172, guid: 8639dffe3f8837c4f972977a3930f932, type: 3}
-  popupParent: {fileID: 1254192534948444330, guid: 0eafde23636be4940a2418f73fdbcf09, type: 3}
   knockbackForce: 400
   movementSpeed: 500
   minDamage: 0.1

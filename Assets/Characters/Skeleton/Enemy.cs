@@ -22,6 +22,9 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody2D>();
+
+        // Ignore collisions between enemies and loot
+        Physics2D.IgnoreLayerCollision(2, 2);
     }
 
     private void FixedUpdate()
