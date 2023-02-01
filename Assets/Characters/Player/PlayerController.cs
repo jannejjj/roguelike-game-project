@@ -108,6 +108,24 @@ public class PlayerController : MonoBehaviour
                 }
             }
             animator.SetBool("isMoving", success);
+
+            // Handle directions
+            if (moveInput.x < 0)
+            {
+                animator.SetInteger("moveDirection", 3);
+            }
+            else if (moveInput.x > 0)
+            {
+                animator.SetInteger("moveDirection", 1);
+            }
+            else if (moveInput.y < 0)
+            {
+                animator.SetInteger("moveDirection", 2);
+            }
+            else if (moveInput.y > 0)
+            {
+                animator.SetInteger("moveDirection", 4);
+            }
         }
         else
         {
@@ -115,25 +133,6 @@ public class PlayerController : MonoBehaviour
             animator.SetInteger("moveDirection", 0);
             collisionCount = 0;
         }
-
-        // Handle directions
-        if (moveInput.x < 0)
-        {
-            animator.SetInteger("moveDirection", 3);
-        }
-        else if (moveInput.x > 0)
-        {
-            animator.SetInteger("moveDirection", 1);
-        }
-        else if (moveInput.y < 0)
-        {
-            animator.SetInteger("moveDirection", 2);
-        }
-        else if (moveInput.y > 0)
-        {
-            animator.SetInteger("moveDirection", 4);
-        }
-
     }
 
     private bool TryToMove(Vector2 direction)
