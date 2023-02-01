@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip attackAudio;
     public AudioClip deathAudio;
     public AudioClip ouchAudio;
+    public AudioClip healAudio;
     public AudioSource audioSource;
     public float collisionOffset = 0.05f;
     public float movementSpeed = 1f;
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     int collisionCount;
     bool moveLocked;
-    float health = 1;
+    public float health = 1;
 
     public float Health
     {
@@ -46,25 +47,26 @@ public class PlayerController : MonoBehaviour
 
                 // Sound
                 audioSource.PlayOneShot(ouchAudio, 0.7F);
-
-                // Check death
-                if (health <= 0)
-                {
-                    Die();
-                }
             }
             else if (health < value)
             {
                 // Player gets healed
                 float healing = value - health;
-                // Transform healthPopupTransform = Instantiate(healthPopupPrefab, Vector3.zero, Quaternion.identity);
-                // HealPopup popup = healthPopupTransform.GetComponent<HealPopup>();
-                // popup.Setup(healing, transform.position);
+                Transform healthPopupTransform = Instantiate(healthPopupPrefab, Vector3.zero, Quaternion.identity);
+                HealPopup popup = healthPopupTransform.GetComponent<HealPopup>();
+                popup.Setup(healing, transform.position);
+                audioSource.PlayOneShot(healAudio, 1F);
             }
 
             // Set new health value
             health = value;
             uiHealth.SetHealth(Mathf.RoundToInt(health * 100).ToString());
+
+            // Check death
+            if (health <= 0)
+            {
+                Die();
+            }
         }
         get
         {

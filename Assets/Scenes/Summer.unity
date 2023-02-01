@@ -1567,7 +1567,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.904, y: 0.345, z: -0.39647007}
+  m_LocalPosition: {x: -0.604, y: 0.375, z: -0.39647007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1649,11 +1649,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7855871270562748910, guid: 902f01da3cdbad94e9ea111ac9aa45cd, type: 3}
   m_PrefabInstance: {fileID: 7855871270343351323}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1021906050 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 861759338909101249, guid: bfb34471b45bb2243be9e3634fa5b8e3, type: 3}
-  m_PrefabInstance: {fileID: 861759339510390851}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1034421489 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6991448109786976169, guid: 6ba5ac4f637043446b251e6b16a9a20c, type: 3}
@@ -1694,11 +1689,16 @@ Transform:
   - {fileID: 103834267}
   - {fileID: 1806065789}
   - {fileID: 890619381}
-  - {fileID: 1021906050}
+  - {fileID: 1237562268}
   - {fileID: 1946104984130136753}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1237562268 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 861759338909101249, guid: bfb34471b45bb2243be9e3634fa5b8e3, type: 3}
+  m_PrefabInstance: {fileID: 861759339510390851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1317091174 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1786152947293488637, guid: 52903f33927924d4fa8e76e0d9d0370e, type: 3}
@@ -1861,7 +1861,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530595950}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.904, y: 0.345, z: -0.39647007}
+  m_LocalPosition: {x: -0.604, y: 0.375, z: -0.39647007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21493,6 +21493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LootHandler
       objectReference: {fileID: 0}
+    - target: {fileID: 2378069533932482846, guid: bfb34471b45bb2243be9e3634fa5b8e3, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfb34471b45bb2243be9e3634fa5b8e3, type: 3}
 --- !u!4 &1946104984130136753
@@ -21739,7 +21743,7 @@ PrefabInstance:
     - target: {fileID: 4026241496962952800, guid: 41c9478c6a1f6df479130bd0333885d5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4026241496962952801, guid: 41c9478c6a1f6df479130bd0333885d5, type: 3}
       propertyPath: m_enableWordWrapping
       value: 0
@@ -21894,11 +21898,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4492703554285630245, guid: d1da0c7a6cceb7c4291dcf542ad3f4e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.904
+      value: -0.604
       objectReference: {fileID: 0}
     - target: {fileID: 4492703554285630245, guid: d1da0c7a6cceb7c4291dcf542ad3f4e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.345
+      value: 0.375
       objectReference: {fileID: 0}
     - target: {fileID: 4492703554285630245, guid: d1da0c7a6cceb7c4291dcf542ad3f4e3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21947,10 +21951,6 @@ PrefabInstance:
     - target: {fileID: 6868456311996368959, guid: d1da0c7a6cceb7c4291dcf542ad3f4e3, type: 3}
       propertyPath: knockbackForce
       value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 8345490982882343947, guid: d1da0c7a6cceb7c4291dcf542ad3f4e3, type: 3}
-      propertyPath: health
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8345490982882343947, guid: d1da0c7a6cceb7c4291dcf542ad3f4e3, type: 3}
       propertyPath: uiCoins
@@ -22478,7 +22478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5793030226344190513, guid: 074f348985f79ed41a0a7db16830f898, type: 3}
-  lootHandlerTransform: {fileID: 1021906050}
+  lootHandlerTransform: {fileID: 1237562268}
   enemyHandlerTransform: {fileID: 890619381}
   coinPrefabs:
   - {fileID: 7233463304722076857, guid: ac344efd2641a7248b269110f74155e1, type: 3}

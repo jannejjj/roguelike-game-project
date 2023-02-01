@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DamagePopup : MonoBehaviour
+public class HealPopup : MonoBehaviour
 {
     private TextMeshPro textMesh;
     private float vanishTimer;
@@ -15,10 +15,10 @@ public class DamagePopup : MonoBehaviour
     }
 
 
-    public void Setup(float damage, Vector3 position)
+    public void Setup(float amount, Vector3 position)
     {
         // Get dmg float, round to int and set as the text
-        textMesh.SetText((Mathf.RoundToInt(damage * 100)).ToString());
+        textMesh.SetText((Mathf.RoundToInt(amount * 100)).ToString());
 
         initialColor = textMesh.color;
 
