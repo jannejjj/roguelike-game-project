@@ -7,7 +7,7 @@ public class DamagePopup : MonoBehaviour
 {
     private TextMeshPro textMesh;
     private float vanishTimer;
-    private Color color;
+    private Color initialColor;
 
     void Awake()
     {
@@ -20,8 +20,7 @@ public class DamagePopup : MonoBehaviour
         // Get dmg float, round to int and set as the text
         textMesh.SetText((Mathf.RoundToInt(damage * 100)).ToString());
 
-        // initial color
-        color = textMesh.color;
+        initialColor = textMesh.color;
 
         vanishTimer = 0.6f;
 
@@ -51,14 +50,13 @@ public class DamagePopup : MonoBehaviour
         {
             // Decrease the alpha value of the popup color until it's vanished
             float vanishSpeed = 2f;
-            color.a -= vanishSpeed * Time.fixedDeltaTime;
-            textMesh.color = color;
+            initialColor.a -= vanishSpeed * Time.fixedDeltaTime;
+            textMesh.color = initialColor;
 
-            if (color.a < 0)
+            if (initialColor.a < 0)
             {
                 Destroy(gameObject);
             }
         }
     }
-
 }

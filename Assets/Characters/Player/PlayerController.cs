@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public ContactFilter2D movementFilter;
     public SwordControl swordControl;
     public Transform damagePopupPrefab;
+    public Transform healthPopupPrefab;
     public UIHealth uiHealth;
     public UICoins uiCoins;
     Vector2 moveInput;
@@ -30,26 +31,40 @@ public class PlayerController : MonoBehaviour
     {
         set
         {
-            // Calculate damage to be used in popup
-            float damage = health - value;
+
+            if (health > value)
+            {
+                // Player takes damage
+
+                // Calculate damage to be used in popup
+                float damage = health - value;
+
+                // Create damage popup
+                Transform damagePopupTransform = Instantiate(damagePopupPrefab, Vector3.zero, Quaternion.identity);
+                DamagePopup popup = damagePopupTransform.GetComponent<DamagePopup>();
+                popup.Setup(damage, transform.position);
+
+                // Sound
+                audioSource.PlayOneShot(ouchAudio, 0.7F);
+
+                // Check death
+                if (health <= 0)
+                {
+                    Die();
+                }
+            }
+            else if (health < value)
+            {
+                // Player gets healed
+                float healing = value - health;
+                // Transform healthPopupTransform = Instantiate(healthPopupPrefab, Vector3.zero, Quaternion.identity);
+                // HealPopup popup = healthPopupTransform.GetComponent<HealPopup>();
+                // popup.Setup(healing, transform.position);
+            }
 
             // Set new health value
             health = value;
             uiHealth.SetHealth(Mathf.RoundToInt(health * 100).ToString());
-
-            // Create damage popup
-            Transform damagePopupTransform = Instantiate(damagePopupPrefab, Vector3.zero, Quaternion.identity);
-            DamagePopup popup = damagePopupTransform.GetComponent<DamagePopup>();
-            popup.Setup(damage, transform.position);
-
-            // Sound
-            audioSource.PlayOneShot(ouchAudio, 0.7F);
-
-            // Check death
-            if (health <= 0)
-            {
-                Die();
-            }
         }
         get
         {
@@ -94,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // If move input != 0, move
+        // Movement
         if (moveInput != Vector2.zero && !moveLocked)
         {
             bool success = TryToMove(moveInput);
@@ -132,6 +147,28 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isMoving", false);
             animator.SetInteger("moveDirection", 0);
             collisionCount = 0;
+        }
+    }
+
+    private void Update()
+    {
+        // Healing
+        if (Input.GetKeyDown(KeyCode.H) && (Coins >= 50))
+        {
+            if (Health <= 0.75f)
+            {
+                Health += 0.25f;
+                Coins -= 50;
+            }
+            else if (Health < 1f)
+            {
+                Health = 1f;
+                Coins -= 50;
+            }
+            else
+            {
+                Debug.Log("HP Full!");
+            }
         }
     }
 
