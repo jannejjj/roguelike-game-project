@@ -23,10 +23,12 @@ public class GameHandler : MonoBehaviour
 
     public void NextRound()
     {
+        // Spawn 1.5 - 2.5 times more enemies than the previous round, reset player position, health and coins
         enemiesToSpawn = Mathf.RoundToInt(enemiesToSpawn * Random.Range(1.5f, 2.5f));
         spawnEnemies(enemiesToSpawn);
         SpawnCoins(coinsToSpawn);
         player.Coins = 0;
+        player.Health = 1;
         player.transform.position = Vector2.zero;
     }
 
