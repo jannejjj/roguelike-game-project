@@ -48,7 +48,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 3
 --- !u!114 &4696581340705317966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,11 +236,11 @@ MonoBehaviour:
   ouchAudio: {fileID: 8300000, guid: f7460856ce2fa084f850cdfd9660085f, type: 3}
   audioSource: {fileID: 0}
   damagePopupPrefab: {fileID: 7370205340257911172, guid: 8639dffe3f8837c4f972977a3930f932, type: 3}
+  aggroArea: {fileID: 4696581340705317966}
   knockbackForce: 400
   movementSpeed: 500
   minDamage: 0.1
   maxDamage: 0.25
-  aggroArea: {fileID: 4696581340705317966}
   health: 1
 --- !u!82 &7513117400594277852
 AudioSource:

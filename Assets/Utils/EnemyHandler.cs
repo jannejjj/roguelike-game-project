@@ -5,7 +5,9 @@ using UnityEngine;
 public class EnemyHandler : MonoBehaviour
 {
     public UIEnemies uiEnemies;
-    public int numberOfEnemies;
+    int numberOfEnemies;
+
+    GameHandler gameHandler;
 
     public int NumberOfEnemies
     {
@@ -14,18 +16,17 @@ public class EnemyHandler : MonoBehaviour
         {
             numberOfEnemies = value;
             uiEnemies.SetEnemies(numberOfEnemies.ToString());
+
+            if (numberOfEnemies == 0)
+            {
+                gameHandler.NextRound();
+            }
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
+        gameHandler = GetComponentInParent<GameHandler>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

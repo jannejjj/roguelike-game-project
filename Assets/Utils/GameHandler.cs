@@ -18,7 +18,17 @@ public class GameHandler : MonoBehaviour
     Vector3 groundMaxCoords;
     int enemiesToSpawn = 10;
     int coinsToSpawn = 15;
+    int roundCounter;
     PlayerController player;
+
+    public void NextRound()
+    {
+        enemiesToSpawn = Mathf.RoundToInt(enemiesToSpawn * Random.Range(1.5f, 2.5f));
+        spawnEnemies(enemiesToSpawn);
+        SpawnCoins(coinsToSpawn);
+        player.Coins = 0;
+        player.transform.position = Vector2.zero;
+    }
 
     // Start is called before the first frame update
     void Start()
