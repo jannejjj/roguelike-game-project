@@ -12,24 +12,27 @@ public class GameHandler : MonoBehaviour
     public Transform[] coinPrefabs;
     public Transform groundLayer;
     public Transform collisionLayer;
+    public UIRound uiRound;
     TilemapCollider2D terrainCollider;
     Tilemap ground;
     Vector3 groundMinCoords;
     Vector3 groundMaxCoords;
     int enemiesToSpawn = 10;
     int coinsToSpawn = 15;
-    int roundCounter;
+    int roundCounter = 1;
     PlayerController player;
 
     public void NextRound()
     {
-        // Spawn 1.5 - 2.5 times more enemies than the previous round, reset player position, health and coins
-        enemiesToSpawn = Mathf.RoundToInt(enemiesToSpawn * Random.Range(1.5f, 2.5f));
+        // Spawn 1.5 - 2.0 times more enemies than the previous round, reset player position, health and coins. Increase round number by 1.
+        enemiesToSpawn = Mathf.RoundToInt(enemiesToSpawn * Random.Range(1.5f, 2f));
         spawnEnemies(enemiesToSpawn);
         SpawnCoins(coinsToSpawn);
         player.Coins = 0;
         player.Health = 1;
         player.transform.position = Vector2.zero;
+        roundCounter++;
+        uiRound.SetRound(roundCounter);
     }
 
     // Start is called before the first frame update
