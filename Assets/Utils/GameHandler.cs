@@ -65,7 +65,7 @@ public class GameHandler : MonoBehaviour
             // Instatiate enemy at random x,y coordinate within the map and place it as a child of the Enemies gameObject
 
             Vector2 randPosition;
-            while (IsInsideTerrain(randPosition = GetRandomPosition()))
+            while (BadPosition(randPosition = GetRandomPosition()))
             {
                 randPosition = GetRandomPosition();
             }
@@ -84,7 +84,8 @@ public class GameHandler : MonoBehaviour
             // Pick one of the coin prefabs at random and instantiate at a random x,y coordinate within the map and place it as a child of the Loot gameObject
 
             Vector2 randPosition;
-            while (IsInsideTerrain(randPosition = GetRandomPosition()))
+            // Check position
+            while (BadPosition(randPosition = GetRandomPosition()))
             {
                 randPosition = GetRandomPosition();
             }
@@ -101,11 +102,22 @@ public class GameHandler : MonoBehaviour
         return new Vector2(Random.Range(groundMinCoords.x + 0.1f, groundMaxCoords.x - 0.1f), Random.Range(groundMinCoords.y + 0.1f, groundMaxCoords.y - 0.1f));
     }
 
-    bool IsInsideTerrain(Vector2 point)
+    bool BadPosition(Vector2 point)
     {
-        // If closest point on the terrain collider == point, the analyzed point is inside terrain. (margin of 0.05 from edges of the collider)
+        // Check that the spawn point isn't too close to the player (no closer than 1f);
+
+        // Additionally, if the closest point on the terrain collider == the analyzed point, the analyzed point is inside the terrain. (margin of 0.15f from the edges of the collider).
 
         Vector2 closestPoint = terrainCollider.ClosestPoint(point);
-        return (Vector2.Distance(closestPoint, point) < 0.05f);
+        if (Vector2.Distance(player.transform.position, point) < 1.5f)
+        {
+            return true;
+        }
+        else if (Vector2.Distance(closestPoint, point) < 0.15f)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
