@@ -21,6 +21,22 @@ public class GameHandler : MonoBehaviour
     int coinsToSpawn = 15;
     int roundCounter = 1;
     PlayerController player;
+    SwordControl sword;
+
+    public enum ModifierType
+    {
+        Speedy,     // More move speed
+        Slow,       // Less move speed
+        Frail,      // Less HP
+        Tanky,      // More HP
+        Strong,     // Higher damage, more knockback
+        Weak,       // Less damage, less knockbak
+        Corrupted,  // More damage, but lose 1HP per second
+        Vampiric,   // Heal on damaging enemies
+        HighStakes, // More enemies, more coin spawns and score
+        ExtraLife,  // Gives the player a one-time revive when their HP reaches 0 (restore HP to 100).
+
+    }
 
     public void NextRound()
     {
@@ -40,6 +56,7 @@ public class GameHandler : MonoBehaviour
     void Start()
     {
         player = GetComponentInChildren<PlayerController>();
+        sword = player.GetComponentInChildren<SwordControl>();
         terrainCollider = collisionLayer.GetComponent<TilemapCollider2D>();
         ground = groundLayer.GetComponent<Tilemap>();
 
@@ -51,12 +68,137 @@ public class GameHandler : MonoBehaviour
         SpawnEnemies(enemiesToSpawn);
         SpawnCoins(coinsToSpawn);
     }
-
-    void IncreasePlayerSpeed(float amount)
+    private void Update()
     {
-        player.movementSpeed += amount;
+        // Healing
+        if (Input.GetKeyDown(KeyCode.H) && (player.Coins >= 50))
+        {
+            if (player.Health <= 0.75f)
+            {
+                player.Health += 0.25f;
+                player.Coins -= 50;
+            }
+            else if (player.Health < player.maxHealth)
+            {
+                player.Health = 1f;
+                player.Coins -= 50;
+            }
+            else
+            {
+                Debug.Log("HP Full!");
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.X) && (player.Coins >= 50))
+        {
+            player.Coins -= 50;
+
+            // Pick a random modifier from the enum
+            System.Array modifiers = ModifierType.GetValues(typeof(ModifierType));
+            int randIndex = Random.Range(0, modifiers.Length - 1);
+
+            switch (modifiers.GetValue(randIndex))
+            {
+                case ModifierType.Speedy:
+                    SetSpeedyModifier();
+                    break;
+
+                case ModifierType.Slow:
+                    SetSlowModifier();
+                    break;
+
+                case ModifierType.Frail:
+                    SetFrailModifier();
+                    break;
+
+                case ModifierType.Tanky:
+                    SetTankyModifier();
+                    break;
+
+                case ModifierType.Strong:
+                    SetStrongModifier();
+                    break;
+
+                case ModifierType.Weak:
+                    SetWeakModifier();
+                    break;
+
+                case ModifierType.Corrupted:
+                    SetCorruptedModifier();
+                    break;
+
+                case ModifierType.Vampiric:
+                    SetVampiricModifier();
+                    break;
+
+                case ModifierType.HighStakes:
+                    SetHighStakesModifier();
+                    break;
+
+                case ModifierType.ExtraLife:
+                    AddExtraLife();
+                    break;
+            }
+        }
+
     }
 
+    void SetSpeedyModifier()
+    {
+        player.movementSpeed += Random.Range(0.2f, 0.4f);
+        Debug.Log("Speedy");
+    }
+
+    void SetSlowModifier()
+    {
+        player.movementSpeed -= Random.Range(0.2f, 0.4f);
+        Debug.Log("Slow");
+    }
+
+    void SetFrailModifier()
+    {
+        player.maxHealth -= .25f;
+        player.Health = player.maxHealth;
+        Debug.Log("Frail");
+    }
+
+    void SetTankyModifier()
+    {
+        player.maxHealth += .5f;
+        player.Health = player.maxHealth;
+        Debug.Log("Tanky");
+    }
+
+    void SetStrongModifier()
+    {
+        sword.knockbackForce += Random.Range(100f, 300f);
+        Debug.Log("Strong");
+    }
+
+    void SetWeakModifier()
+    {
+        sword.knockbackForce -= Random.Range(100f, 300f);
+        Debug.Log("Weak");
+    }
+
+    void SetCorruptedModifier()
+    {
+        Debug.Log("Corrupted");
+    }
+
+    void SetVampiricModifier()
+    {
+        Debug.Log("Vampiric");
+    }
+
+    void SetHighStakesModifier()
+    {
+        Debug.Log("HighStakes");
+    }
+
+    void AddExtraLife()
+    {
+        Debug.Log("ExtraLife");
+    }
 
     void SpawnEnemies(int amount)
     {

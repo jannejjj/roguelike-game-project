@@ -26,7 +26,9 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     int collisionCount;
     bool moveLocked;
-    public float health = 1;
+
+    public float maxHealth = 1;
+    float health = 1;
 
     public float Health
     {
@@ -36,8 +38,6 @@ public class PlayerController : MonoBehaviour
             if (health > value)
             {
                 // Player takes damage
-
-                // Calculate damage to be used in popup
                 float damage = health - value;
 
                 // Create damage popup
@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
             {
                 // Player gets healed
                 float healing = value - health;
+
+                // Create healing popup
                 Transform healthPopupTransform = Instantiate(healthPopupPrefab, Vector3.zero, Quaternion.identity);
                 HealPopup popup = healthPopupTransform.GetComponent<HealPopup>();
                 popup.Setup(healing, transform.position);
@@ -149,28 +151,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isMoving", false);
             animator.SetInteger("moveDirection", 0);
             collisionCount = 0;
-        }
-    }
-
-    private void Update()
-    {
-        // Healing
-        if (Input.GetKeyDown(KeyCode.H) && (Coins >= 50))
-        {
-            if (Health <= 0.75f)
-            {
-                Health += 0.25f;
-                Coins -= 50;
-            }
-            else if (Health < 1f)
-            {
-                Health = 1f;
-                Coins -= 50;
-            }
-            else
-            {
-                Debug.Log("HP Full!");
-            }
         }
     }
 
