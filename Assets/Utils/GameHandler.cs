@@ -24,9 +24,10 @@ public class GameHandler : MonoBehaviour
 
     public void NextRound()
     {
-        // Spawn 1.5 - 2.0 times more enemies than the previous round, reset player position, health and coins. Increase round number by 1.
-        enemiesToSpawn = Mathf.RoundToInt(enemiesToSpawn * Random.Range(1.5f, 2f));
-        spawnEnemies(enemiesToSpawn);
+        // Spawn 1.25 - 1.75 times more enemies than the previous round, reset player position, health and coins. Increase round number by 1.
+
+        enemiesToSpawn = Mathf.RoundToInt(enemiesToSpawn * Random.Range(1.25f, 1.75f));
+        SpawnEnemies(enemiesToSpawn);
         SpawnCoins(coinsToSpawn);
         player.Coins = 0;
         player.Health = 1;
@@ -47,7 +48,7 @@ public class GameHandler : MonoBehaviour
         groundMinCoords = ground.localBounds.min;
         groundMaxCoords = ground.localBounds.max;
 
-        spawnEnemies(enemiesToSpawn);
+        SpawnEnemies(enemiesToSpawn);
         SpawnCoins(coinsToSpawn);
     }
 
@@ -57,7 +58,7 @@ public class GameHandler : MonoBehaviour
     }
 
 
-    void spawnEnemies(int amount)
+    void SpawnEnemies(int amount)
     {
         for (int i = 0; i < enemiesToSpawn
         ; i++)
@@ -72,8 +73,8 @@ public class GameHandler : MonoBehaviour
 
             Transform enemyTransform = Instantiate(enemyPrefab, randPosition, Quaternion.identity);
             enemyTransform.parent = enemyHandlerTransform;
-            enemyHandler.NumberOfEnemies = enemiesToSpawn;
         }
+        enemyHandler.NumberOfEnemies = enemiesToSpawn;
     }
 
     void SpawnCoins(int amount)
@@ -84,7 +85,6 @@ public class GameHandler : MonoBehaviour
             // Pick one of the coin prefabs at random and instantiate at a random x,y coordinate within the map and place it as a child of the Loot gameObject
 
             Vector2 randPosition;
-            // Check position
             while (BadPosition(randPosition = GetRandomPosition()))
             {
                 randPosition = GetRandomPosition();
@@ -109,7 +109,7 @@ public class GameHandler : MonoBehaviour
         // Additionally, if the closest point on the terrain collider == the analyzed point, the analyzed point is inside the terrain. (margin of 0.15f from the edges of the collider).
 
         Vector2 closestPoint = terrainCollider.ClosestPoint(point);
-        if (Vector2.Distance(player.transform.position, point) < 1.5f)
+        if (Vector2.Distance(player.transform.position, point) < 2f)
         {
             return true;
         }
@@ -117,7 +117,10 @@ public class GameHandler : MonoBehaviour
         {
             return true;
         }
+        else
+        {
+            return false;
+        }
 
-        return false;
     }
 }
