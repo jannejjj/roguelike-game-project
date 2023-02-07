@@ -14,11 +14,10 @@ public class Enemy : MonoBehaviour
     public float movementSpeed = 300f;
     public float minDamage = 0.1f;
     public float maxDamage = 0.25f;
-    public float maxHealth = 1;
     Rigidbody2D rigidBody;
     Animator animator;
     EnemyHandler enemyHandler;
-    float health;
+    float health = 1;
 
 
     private void Start()

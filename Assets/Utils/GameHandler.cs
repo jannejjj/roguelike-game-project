@@ -8,11 +8,13 @@ public class GameHandler : MonoBehaviour
     public Transform enemyPrefab;
     public Transform lootHandlerTransform;
     public Transform enemyHandlerTransform;
-    EnemyHandler enemyHandler;
     public Transform[] coinPrefabs;
     public Transform groundLayer;
     public Transform collisionLayer;
     public UIRound uiRound;
+    public Transform positivePopupPrefab;
+    public Transform negativePopupPrefab;
+    EnemyHandler enemyHandler;
     TilemapCollider2D terrainCollider;
     Tilemap ground;
     Vector3 groundMinCoords;
@@ -92,41 +94,70 @@ public class GameHandler : MonoBehaviour
             // Pick a random modifier from the enum
             System.Array modifiers = ModifierType.GetValues(typeof(ModifierType));
             int randIndex = Random.Range(0, modifiers.Length);
+            string popupText;
+            bool positiveModifier = true;
 
             switch (modifiers.GetValue(randIndex))
             {
                 case ModifierType.Speedy:
                     SetSpeedyModifier();
+                    popupText = "Speedy";
                     break;
 
                 case ModifierType.Slow:
+                    popupText = "Slow";
+                    positiveModifier = false;
                     SetSlowModifier();
                     break;
 
                 case ModifierType.Frail:
+                    popupText = "Frail";
+                    positiveModifier = false;
                     SetFrailModifier();
                     break;
 
                 case ModifierType.Tanky:
+                    popupText = "Tanky";
                     SetTankyModifier();
                     break;
 
                 case ModifierType.Strong:
+                    popupText = "Strong";
                     SetStrongModifier();
                     break;
 
                 case ModifierType.Weak:
+                    popupText = "Weak";
+                    positiveModifier = false;
                     SetWeakModifier();
                     break;
 
                 case ModifierType.Corrupted:
+                    popupText = "Corrupted";
+                    positiveModifier = false;
                     SetCorruptedModifier();
                     break;
 
-                case ModifierType.Vampiric:
+                default:
+                    popupText = "Vampiric";
                     SetVampiricModifier();
                     break;
 
+            }
+
+            // Create modifier popup
+            Transform modifierPopup;
+            if (positiveModifier)
+            {
+                modifierPopup = Instantiate(positivePopupPrefab, Vector3.zero, Quaternion.identity);
+                PositiveModifierPopup popup = modifierPopup.GetComponent<PositiveModifierPopup>();
+                popup.Setup(popupText, player.transform.position);
+            }
+            else
+            {
+                modifierPopup = Instantiate(negativePopupPrefab, Vector3.zero, Quaternion.identity);
+                NegativeModifierPopup popup = modifierPopup.GetComponent<NegativeModifierPopup>();
+                popup.Setup(popupText, player.transform.position);
             }
         }
 

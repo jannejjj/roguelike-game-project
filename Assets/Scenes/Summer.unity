@@ -22728,6 +22728,8 @@ MonoBehaviour:
   groundLayer: {fileID: 1788589384}
   collisionLayer: {fileID: 30913954}
   uiRound: {fileID: 6241177675531947386}
+  positivePopupPrefab: {fileID: 9153816618731985461, guid: 91924d78facb2de4ebfe48587735f4ca, type: 3}
+  negativePopupPrefab: {fileID: 5019999477346835842, guid: 12cedcbc597cf1b4db56a3af4a2125dc, type: 3}
 --- !u!1001 &8936979777570151187
 PrefabInstance:
   m_ObjectHideFlags: 0
