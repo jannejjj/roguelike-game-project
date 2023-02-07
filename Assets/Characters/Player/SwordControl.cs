@@ -5,12 +5,14 @@ using UnityEngine;
 public class SwordControl : MonoBehaviour
 {
     BoxCollider2D attackCollider;
+    PlayerController player;
     public float knockbackForce = 150f;
     public float minDamage = 0.1f;
     public float maxDamage = 0.4f;
     private void Start()
     {
         attackCollider = GetComponent<BoxCollider2D>();
+        player = GetComponentInParent<PlayerController>();
     }
 
     public void AttackRight()
@@ -51,9 +53,24 @@ public class SwordControl : MonoBehaviour
         if (other.tag == "Enemy")
         {
             Enemy enemy;
+            float damage;
             if ((enemy = other.GetComponent<Enemy>()) != null)
             {
-                enemy.Health -= Random.Range(minDamage, maxDamage);
+                damage = Random.Range(minDamage, maxDamage);
+                enemy.Health -= damage;
+
+                if (player.modifiers["Vampiric"] != 0)
+                {
+                    // Check if healing the player would exceed maxHealth
+                    if ((player.Health + damage * 0.15f) >= player.maxHealth)
+                    {
+                        player.Health = player.maxHealth;
+                    }
+                    else
+                    {
+                        player.Health += (damage * 0.15f);
+                    }
+                }
             }
 
             Vector3 playerPosition = gameObject.GetComponentInParent<Transform>().position;

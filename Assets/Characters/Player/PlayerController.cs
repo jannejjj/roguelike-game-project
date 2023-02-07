@@ -26,15 +26,24 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     int collisionCount;
     bool moveLocked;
-
     public float maxHealth = 1;
     float health = 1;
+    public Dictionary<string, int> modifiers = new Dictionary<string, int>()
+    {
+        {"Speedy", 0},
+        {"Slow", 0},
+        {"Frail", 0},
+        {"Tanky", 0},
+        {"Strong", 0},
+        {"Weak", 0},
+        {"Corrupted", 0},
+        {"Vampiric", 0},
+    };
 
     public float Health
     {
         set
         {
-
             if (health > value)
             {
                 // Player takes damage

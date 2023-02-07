@@ -33,8 +33,6 @@ public class GameHandler : MonoBehaviour
         Weak,       // Less damage, less knockbak
         Corrupted,  // More damage, but lose 1HP per second
         Vampiric,   // Heal on damaging enemies
-        HighStakes, // More enemies, more coin spawns and score
-        ExtraLife,  // Gives the player a one-time revive when their HP reaches 0 (restore HP to 100).
 
     }
 
@@ -46,7 +44,7 @@ public class GameHandler : MonoBehaviour
         SpawnEnemies(enemiesToSpawn);
         SpawnCoins(coinsToSpawn);
         player.Coins = 0;
-        player.Health = 1;
+        player.Health = player.maxHealth;
         player.transform.position = Vector2.zero;
         roundCounter++;
         uiRound.SetRound(roundCounter);
@@ -130,13 +128,6 @@ public class GameHandler : MonoBehaviour
                     SetVampiricModifier();
                     break;
 
-                case ModifierType.HighStakes:
-                    SetHighStakesModifier();
-                    break;
-
-                case ModifierType.ExtraLife:
-                    AddExtraLife();
-                    break;
             }
         }
 
@@ -144,20 +135,23 @@ public class GameHandler : MonoBehaviour
 
     void SetSpeedyModifier()
     {
-        player.movementSpeed += Random.Range(0.2f, 0.4f);
+        player.movementSpeed += Random.Range(0.15f, 0.3f);
         Debug.Log("Speedy");
     }
 
     void SetSlowModifier()
     {
-        player.movementSpeed -= Random.Range(0.2f, 0.4f);
+        player.movementSpeed -= Random.Range(0.15f, 0.3f);
         Debug.Log("Slow");
     }
 
     void SetFrailModifier()
     {
         player.maxHealth -= .25f;
-        player.Health = player.maxHealth;
+        if (player.maxHealth < player.Health)
+        {
+            player.Health = player.maxHealth;
+        }
         Debug.Log("Frail");
     }
 
@@ -171,33 +165,44 @@ public class GameHandler : MonoBehaviour
     void SetStrongModifier()
     {
         sword.knockbackForce += Random.Range(100f, 300f);
+        sword.minDamage += Random.Range(0.05f, 0.1f);
+        sword.maxDamage += Random.Range(0.05f, 0.1f);
         Debug.Log("Strong");
     }
 
     void SetWeakModifier()
     {
         sword.knockbackForce -= Random.Range(100f, 300f);
+        // Prevent negative values
+        if (sword.knockbackForce < 0f)
+        {
+            sword.knockbackForce = 0f;
+        }
         Debug.Log("Weak");
     }
 
     void SetCorruptedModifier()
     {
+        InvokeRepeating("damageOverTime", 0f, 1f);
+        sword.minDamage += Random.Range(0.05f, 0.1f);
+        sword.maxDamage += Random.Range(0.05f, 0.1f);
         Debug.Log("Corrupted");
     }
 
     void SetVampiricModifier()
     {
+        player.modifiers["Vampiric"] += 1;
         Debug.Log("Vampiric");
-    }
-
-    void SetHighStakesModifier()
-    {
-        Debug.Log("HighStakes");
     }
 
     void AddExtraLife()
     {
         Debug.Log("ExtraLife");
+    }
+
+    void damageOverTime()
+    {
+        player.Health -= 0.01f;
     }
 
     void SpawnEnemies(int amount)
