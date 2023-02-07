@@ -14,9 +14,11 @@ public class Enemy : MonoBehaviour
     public float movementSpeed = 300f;
     public float minDamage = 0.1f;
     public float maxDamage = 0.25f;
+    public float maxHealth = 1;
     Rigidbody2D rigidBody;
     Animator animator;
     EnemyHandler enemyHandler;
+    float health;
 
 
     private void Start()
@@ -89,8 +91,6 @@ public class Enemy : MonoBehaviour
             return health;
         }
     }
-
-    public float health = 1;
 
     public void OnCollisionEnter2D(Collision2D collision)
     {

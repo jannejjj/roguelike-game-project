@@ -38,9 +38,8 @@ public class GameHandler : MonoBehaviour
 
     public void NextRound()
     {
-        // Spawn 1.25 - 1.75 times more enemies than the previous round, reset player position, health and coins. Increase round number by 1.
-
-        enemiesToSpawn = Mathf.RoundToInt(enemiesToSpawn * Random.Range(1.25f, 1.75f));
+        // Spawn 1.25 - 1.5 times more enemies than the previous round, reset player position, health and coins. Increase round number by 1.
+        enemiesToSpawn = Mathf.RoundToInt(enemiesToSpawn * Random.Range(1.25f, 1.5f));
         SpawnEnemies(enemiesToSpawn);
         SpawnCoins(coinsToSpawn);
         player.Coins = 0;
@@ -92,7 +91,7 @@ public class GameHandler : MonoBehaviour
 
             // Pick a random modifier from the enum
             System.Array modifiers = ModifierType.GetValues(typeof(ModifierType));
-            int randIndex = Random.Range(0, modifiers.Length - 1);
+            int randIndex = Random.Range(0, modifiers.Length);
 
             switch (modifiers.GetValue(randIndex))
             {
@@ -136,12 +135,14 @@ public class GameHandler : MonoBehaviour
     void SetSpeedyModifier()
     {
         player.movementSpeed += Random.Range(0.15f, 0.3f);
+        player.modifiers["Speedy"] += 1;
         Debug.Log("Speedy");
     }
 
     void SetSlowModifier()
     {
         player.movementSpeed -= Random.Range(0.15f, 0.3f);
+        player.modifiers["Slow"] += 1;
         Debug.Log("Slow");
     }
 
@@ -152,6 +153,7 @@ public class GameHandler : MonoBehaviour
         {
             player.Health = player.maxHealth;
         }
+        player.modifiers["Frail"] += 1;
         Debug.Log("Frail");
     }
 
@@ -159,6 +161,7 @@ public class GameHandler : MonoBehaviour
     {
         player.maxHealth += .5f;
         player.Health = player.maxHealth;
+        player.modifiers["Tanky"] += 1;
         Debug.Log("Tanky");
     }
 
@@ -167,17 +170,19 @@ public class GameHandler : MonoBehaviour
         sword.knockbackForce += Random.Range(100f, 300f);
         sword.minDamage += Random.Range(0.05f, 0.1f);
         sword.maxDamage += Random.Range(0.05f, 0.1f);
+        player.modifiers["Strong"] += 1;
         Debug.Log("Strong");
     }
 
     void SetWeakModifier()
     {
-        sword.knockbackForce -= Random.Range(100f, 300f);
+        sword.knockbackForce -= Random.Range(50f, 100f);
         // Prevent negative values
         if (sword.knockbackForce < 0f)
         {
             sword.knockbackForce = 0f;
         }
+        player.modifiers["Weak"] += 1;
         Debug.Log("Weak");
     }
 
@@ -186,6 +191,7 @@ public class GameHandler : MonoBehaviour
         InvokeRepeating("damageOverTime", 0f, 1f);
         sword.minDamage += Random.Range(0.05f, 0.1f);
         sword.maxDamage += Random.Range(0.05f, 0.1f);
+        player.modifiers["Corrupted"] += 1;
         Debug.Log("Corrupted");
     }
 
@@ -195,12 +201,7 @@ public class GameHandler : MonoBehaviour
         Debug.Log("Vampiric");
     }
 
-    void AddExtraLife()
-    {
-        Debug.Log("ExtraLife");
-    }
-
-    void damageOverTime()
+    void damageOverTime() // To be used with InvokeRepeating()
     {
         player.Health -= 0.01f;
     }
@@ -226,9 +227,10 @@ public class GameHandler : MonoBehaviour
 
     void SpawnCoins(int amount)
     {
-        for (int i = 0; i < coinsToSpawn; i++)
+        // Reduce the amount by the number of coins already in the level (not picked up during previous round)
+        amount = (amount - lootHandlerTransform.childCount);
+        for (int i = 0; i < amount; i++)
         {
-
             // Pick one of the coin prefabs at random and instantiate at a random x,y coordinate within the map and place it as a child of the Loot gameObject
 
             Vector2 randPosition;
