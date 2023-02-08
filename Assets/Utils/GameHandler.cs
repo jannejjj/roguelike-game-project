@@ -87,9 +87,10 @@ public class GameHandler : MonoBehaviour
                 Debug.Log("HP Full!");
             }
         }
-        else if (Input.GetKeyDown(KeyCode.X) && (player.Coins >= 50))
+        // Modifiers
+        else if (Input.GetKeyDown(KeyCode.X) && (player.Coins >= 75))
         {
-            player.Coins -= 50;
+            player.Coins -= 75;
 
             // Pick a random modifier from the enum
             System.Array modifiers = ModifierType.GetValues(typeof(ModifierType));

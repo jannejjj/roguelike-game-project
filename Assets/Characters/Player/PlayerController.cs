@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public Transform healthPopupPrefab;
     public UIHealth uiHealth;
     public UICoins uiCoins;
+    public UIScore uiScore;
     Vector2 moveInput;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rigidBody;
@@ -91,6 +92,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             score = value;
+            uiScore.SetScore(score);
         }
         get
         {

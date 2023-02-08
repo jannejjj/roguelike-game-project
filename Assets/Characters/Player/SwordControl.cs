@@ -62,13 +62,13 @@ public class SwordControl : MonoBehaviour
                 if (player.modifiers["Vampiric"] != 0)
                 {
                     // Check if healing the player would exceed maxHealth
-                    if ((player.Health + damage * 0.15f) >= player.maxHealth)
+                    if ((player.Health + damage * 0.08f) >= player.maxHealth)
                     {
                         player.Health = player.maxHealth;
                     }
                     else
                     {
-                        player.Health += (damage * 0.15f);
+                        player.Health += (damage * 0.08f);
                     }
                 }
             }

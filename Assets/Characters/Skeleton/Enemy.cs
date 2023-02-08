@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public AudioSource audioSource;
     public Transform damagePopupPrefab;
     public EnemyAggro aggroArea;
+    PlayerController player;
     public float knockbackForce = 500f;
     public float movementSpeed = 300f;
     public float minDamage = 0.1f;
@@ -35,8 +36,7 @@ public class Enemy : MonoBehaviour
     {
         if (aggroArea.detectedList.Count > 0)
         {
-            // The area only detects the player, no need to check here
-            PlayerController player = aggroArea.detectedList[0].GetComponent<PlayerController>();
+            player = aggroArea.detectedList[0].GetComponent<PlayerController>();
 
             // Player has been detected, move towards it
             Vector2 directionToPlayer = (player.transform.position - gameObject.transform.position).normalized;
@@ -93,8 +93,6 @@ public class Enemy : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerController player;
-
         if ((player = collision.collider.GetComponent<PlayerController>()) != null)
         {
             // Damage player
@@ -134,6 +132,9 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("Dead");
         rigidBody.simulated = false;
         enemyHandler.NumberOfEnemies -= 1;
+
+        // The points gain from killing an enemy is 50 + 0.2 times the player's current coin balance
+        player.Score += 50 + Mathf.RoundToInt((player.Coins * 0.25f));
     }
 
     public void DespawnEnemy()
