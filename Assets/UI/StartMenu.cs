@@ -14,7 +14,6 @@ public class StartMenu : MonoBehaviour
 
     public void LoreOnClick()
     {
-        Debug.Log("Lore clicked");
         lore.SetActive(false);
         controls.SetActive(true);
     }
@@ -39,7 +38,6 @@ public class StartMenu : MonoBehaviour
 
     public void Quit()
     {
-        Debug.Log("Quit.");
         Application.Quit();
     }
 }
