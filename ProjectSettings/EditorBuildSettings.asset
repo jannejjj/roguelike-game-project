@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Summer.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/Start.unity
     guid: cf6f856e413147843914c29b8fa8457b
+  - enabled: 1
+    path: Assets/Scenes/Summer.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/Death.unity
     guid: dd5098d9b597910479b7c427b5f9b5f3
