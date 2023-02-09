@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Start.unity
     guid: cf6f856e413147843914c29b8fa8457b
+  - enabled: 1
+    path: Assets/Scenes/Death.unity
+    guid: dd5098d9b597910479b7c427b5f9b5f3
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e6605910d4bb509459b581095f446650, type: 2}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -45,9 +45,8 @@ public class PlayerController : MonoBehaviour
     {
         set
         {
-            if (health > value)
+            if (health > value) // Player takes damage
             {
-                // Player takes damage
                 float damage = health - value;
 
                 // Create damage popup
@@ -55,18 +54,17 @@ public class PlayerController : MonoBehaviour
                 DamagePopup popup = damagePopupTransform.GetComponent<DamagePopup>();
                 popup.Setup(damage, transform.position);
 
-                // Sound
-                audioSource.PlayOneShot(ouchAudio, 0.7F);
+                audioSource.PlayOneShot(ouchAudio, 0.5F);
             }
-            else if (health < value)
+            else if (health < value) // Player gets healed
             {
-                // Player gets healed
                 float healing = value - health;
 
                 // Create healing popup
                 Transform healthPopupTransform = Instantiate(healthPopupPrefab, Vector3.zero, Quaternion.identity);
                 HealPopup popup = healthPopupTransform.GetComponent<HealPopup>();
                 popup.Setup(healing, transform.position);
+
                 audioSource.PlayOneShot(healAudio, 1F);
             }
 
@@ -74,7 +72,6 @@ public class PlayerController : MonoBehaviour
             health = value;
             uiHealth.SetHealth(Mathf.RoundToInt(health * 100).ToString());
 
-            // Check death
             if (health <= 0)
             {
                 Die();
@@ -260,6 +257,16 @@ public class PlayerController : MonoBehaviour
         audioSource.PlayOneShot(deathAudio, 0.7F);
         animator.SetTrigger("Dead");
         rigidBody.simulated = false;
+    }
+
+    public void SwitchToDeathScene()
+    {
+        SceneManager.LoadScene("Death");
+    }
+
+    private void OnDisable()
+    {
+        PlayerPrefs.SetInt("score", score);
     }
 
 }
