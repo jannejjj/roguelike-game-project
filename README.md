@@ -5,4 +5,4 @@ For the terrain assets I used the Mystic Woods asset pack by Game Endeavor, colo
 
 The background music is from: https://www.fesliyanstudios.com/royalty-free-music/downloads-c/8-bit-music/6
 
-Sound effects are self-made.
+Sound effects and art other than the terrain are self-made.
