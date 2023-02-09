@@ -166,16 +166,14 @@ public class GameHandler : MonoBehaviour
 
     void SetSpeedyModifier()
     {
-        player.movementSpeed += Random.Range(0.15f, 0.3f);
+        player.movementSpeed = player.movementSpeed * Random.Range(1.1f, 1.2f);
         player.modifiers["Speedy"] += 1;
-        Debug.Log("Speedy");
     }
 
     void SetSlowModifier()
     {
-        player.movementSpeed -= Random.Range(0.15f, 0.3f);
+        player.movementSpeed = player.movementSpeed * Random.Range(0.9f, 0.8f);
         player.modifiers["Slow"] += 1;
-        Debug.Log("Slow");
     }
 
     void SetFrailModifier()
@@ -186,7 +184,6 @@ public class GameHandler : MonoBehaviour
             player.Health = player.maxHealth;
         }
         player.modifiers["Frail"] += 1;
-        Debug.Log("Frail");
     }
 
     void SetTankyModifier()
@@ -194,7 +191,6 @@ public class GameHandler : MonoBehaviour
         player.maxHealth += .5f;
         player.Health = player.maxHealth;
         player.modifiers["Tanky"] += 1;
-        Debug.Log("Tanky");
     }
 
     void SetStrongModifier()
@@ -203,7 +199,6 @@ public class GameHandler : MonoBehaviour
         sword.minDamage += Random.Range(0.05f, 0.1f);
         sword.maxDamage += Random.Range(0.05f, 0.1f);
         player.modifiers["Strong"] += 1;
-        Debug.Log("Strong");
     }
 
     void SetWeakModifier()
@@ -215,7 +210,6 @@ public class GameHandler : MonoBehaviour
             sword.knockbackForce = 0f;
         }
         player.modifiers["Weak"] += 1;
-        Debug.Log("Weak");
     }
 
     void SetCorruptedModifier()
@@ -224,13 +218,11 @@ public class GameHandler : MonoBehaviour
         sword.minDamage += Random.Range(0.05f, 0.1f);
         sword.maxDamage += Random.Range(0.05f, 0.1f);
         player.modifiers["Corrupted"] += 1;
-        Debug.Log("Corrupted");
     }
 
     void SetVampiricModifier()
     {
         player.modifiers["Vampiric"] += 1;
-        Debug.Log("Vampiric");
     }
 
     void damageOverTime() // To be used with InvokeRepeating()
@@ -261,6 +253,7 @@ public class GameHandler : MonoBehaviour
     {
         // Reduce the amount by the number of coins already in the level (not picked up during previous round)
         amount = (amount - lootHandlerTransform.childCount);
+
         for (int i = 0; i < amount; i++)
         {
             // Pick one of the coin prefabs at random and instantiate at a random x,y coordinate within the map and place it as a child of the Loot gameObject

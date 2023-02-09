@@ -248,7 +248,6 @@ public class PlayerController : MonoBehaviour
     public void HandleKnockback(Vector2 knockbackForce)
     {
         rigidBody.AddForce(knockbackForce);
-        print("knockbackForce (on player): " + knockbackForce);
     }
 
     public void Die()

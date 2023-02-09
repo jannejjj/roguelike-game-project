@@ -114,7 +114,6 @@ public class Enemy : MonoBehaviour
     public void HandleKnockback(Vector2 knockbackForce)
     {
         rigidBody.AddForce(knockbackForce);
-        print("knockbackForce: " + knockbackForce);
         StartCoroutine(ReduceMovementSpeed(275f, 0.5f));
     }
 
