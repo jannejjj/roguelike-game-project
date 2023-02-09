@@ -254,6 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23be1e31510846438709c6bf645fe8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  positiveModifier: {fileID: 8300000, guid: db3202885672290439f9535d8043b2d7, type: 3}
+  negativeModifier: {fileID: 8300000, guid: c255c4c75f79d6f4dae96eaed2471e9e, type: 3}
   attackAudio: {fileID: 8300000, guid: 33dfbd63082d1f644800413563b53d5c, type: 3}
   deathAudio: {fileID: 8300000, guid: 0d9d59121111a5c4993ba6521ca22dfe, type: 3}
   ouchAudio: {fileID: 8300000, guid: f270af16605c3364b89ca89790043238, type: 3}
@@ -280,7 +282,8 @@ MonoBehaviour:
   healthPopupPrefab: {fileID: 4853722196158803832, guid: 6e7c34d426cf5e64ebe5939956a0998e, type: 3}
   uiHealth: {fileID: 0}
   uiCoins: {fileID: 0}
-  health: 1
+  uiScore: {fileID: 0}
+  maxHealth: 1
 --- !u!95 &8639394335925616158
 Animator:
   serializedVersion: 5

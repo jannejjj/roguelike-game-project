@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public AudioClip positiveModifier;
+    public AudioClip negativeModifier;
     public AudioClip attackAudio;
     public AudioClip deathAudio;
     public AudioClip ouchAudio;
@@ -225,16 +227,6 @@ public class PlayerController : MonoBehaviour
         swordControl.StopAttack();
     }
 
-    void OnMove(InputValue inputValue)
-    {
-        moveInput = inputValue.Get<Vector2>();
-    }
-
-    void OnFire()
-    {
-        animator.SetTrigger("swordAttack");
-    }
-
     public void LockMovement()
     {
         moveLocked = true;
@@ -261,6 +253,26 @@ public class PlayerController : MonoBehaviour
     public void SwitchToDeathScene()
     {
         SceneManager.LoadScene("Death");
+    }
+
+    public void PlayPositiveModifierSound()
+    {
+        audioSource.PlayOneShot(positiveModifier, 0.7F);
+    }
+
+    public void PlayNegativeModifierSound()
+    {
+        audioSource.PlayOneShot(negativeModifier, 2F);
+    }
+
+    void OnMove(InputValue inputValue)
+    {
+        moveInput = inputValue.Get<Vector2>();
+    }
+
+    void OnFire()
+    {
+        animator.SetTrigger("swordAttack");
     }
 
     private void OnDisable()

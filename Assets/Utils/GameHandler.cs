@@ -146,19 +146,21 @@ public class GameHandler : MonoBehaviour
 
             }
 
-            // Create modifier popup
+            // Create modifier popup and play sound
             Transform modifierPopup;
             if (positiveModifier)
             {
                 modifierPopup = Instantiate(positivePopupPrefab, Vector3.zero, Quaternion.identity);
                 PositiveModifierPopup popup = modifierPopup.GetComponent<PositiveModifierPopup>();
                 popup.Setup(popupText, player.transform.position);
+                player.PlayPositiveModifierSound();
             }
             else
             {
                 modifierPopup = Instantiate(negativePopupPrefab, Vector3.zero, Quaternion.identity);
                 NegativeModifierPopup popup = modifierPopup.GetComponent<NegativeModifierPopup>();
                 popup.Setup(popupText, player.transform.position);
+                player.PlayNegativeModifierSound();
             }
         }
 
