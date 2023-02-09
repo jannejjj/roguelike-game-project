@@ -44,9 +44,7 @@ public class DeathScene : MonoBehaviour
     private void OnEnable()
     {
         newScoreValue = PlayerPrefs.GetInt("score");
-        Debug.Log("new score:" + newScoreValue);
         highScoreValue = PlayerPrefs.GetInt("highScore");
-        Debug.Log("high score:" + highScoreValue);
     }
 
     private void OnDisable()
