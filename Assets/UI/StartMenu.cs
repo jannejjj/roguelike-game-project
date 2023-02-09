@@ -8,6 +8,7 @@ public class StartMenu : MonoBehaviour
 {
     public GameObject lore;
     public GameObject controls;
+    public GameObject modifiers;
     public GameObject play;
     public GameObject quit;
 
@@ -21,6 +22,12 @@ public class StartMenu : MonoBehaviour
     public void ControlsOnClick()
     {
         controls.SetActive(false);
+        modifiers.SetActive(true);
+    }
+
+    public void ModifiersOnClick()
+    {
+        modifiers.SetActive(false);
         play.SetActive(true);
         quit.SetActive(true);
     }
