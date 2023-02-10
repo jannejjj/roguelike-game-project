@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
                 DamagePopup popup = damagePopupTransform.GetComponent<DamagePopup>();
                 popup.Setup(damage, transform.position);
 
-                audioSource.PlayOneShot(ouchAudio, 0.5F);
+                audioSource.PlayOneShot(ouchAudio, 0.3F);
             }
             else if (health < value) // Player gets healed
             {

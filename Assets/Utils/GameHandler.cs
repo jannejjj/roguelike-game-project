@@ -40,8 +40,8 @@ public class GameHandler : MonoBehaviour
 
     public void NextRound()
     {
-        // Spawn 1.25 - 1.5 times more enemies than the previous round, reset player position, health and coins. Increase round number by 1.
-        enemiesToSpawn = Mathf.RoundToInt(enemiesToSpawn * Random.Range(1.25f, 1.5f));
+        // Spawn 1.2 - 1.4 times more enemies than the previous round, reset player position, health and coins. Increase round number by 1.
+        enemiesToSpawn = Mathf.RoundToInt(enemiesToSpawn * Random.Range(1.2f, 1.4f));
         SpawnEnemies(enemiesToSpawn);
         SpawnCoins(coinsToSpawn);
         player.Coins = 0;
@@ -67,6 +67,7 @@ public class GameHandler : MonoBehaviour
         SpawnEnemies(enemiesToSpawn);
         SpawnCoins(coinsToSpawn);
     }
+
     private void Update()
     {
         // Healing
@@ -88,9 +89,9 @@ public class GameHandler : MonoBehaviour
             }
         }
         // Modifiers
-        else if (Input.GetKeyDown(KeyCode.X) && (player.Coins >= 75))
+        else if (Input.GetKeyDown(KeyCode.X) && (player.Coins >= 100))
         {
-            player.Coins -= 75;
+            player.Coins -= 100;
 
             // Pick a random modifier from the enum
             System.Array modifiers = ModifierType.GetValues(typeof(ModifierType));
@@ -190,7 +191,7 @@ public class GameHandler : MonoBehaviour
 
     void SetTankyModifier()
     {
-        player.maxHealth += .5f;
+        player.maxHealth += .25f;
         player.Health = player.maxHealth;
         player.modifiers["Tanky"] += 1;
     }
@@ -273,23 +274,23 @@ public class GameHandler : MonoBehaviour
 
     Vector2 GetRandomPosition()
     {
-        // Get a random position within the level (0.1f margins from edges)
+        // Get a random position within the level (0.2f margins from edges)
 
-        return new Vector2(Random.Range(groundMinCoords.x + 0.1f, groundMaxCoords.x - 0.1f), Random.Range(groundMinCoords.y + 0.1f, groundMaxCoords.y - 0.1f));
+        return new Vector2(Random.Range(groundMinCoords.x + 0.2f, groundMaxCoords.x - 0.1f), Random.Range(groundMinCoords.y + 0.2f, groundMaxCoords.y - 0.1f));
     }
 
     bool BadPosition(Vector2 point)
     {
-        // Check that the spawn point isn't too close to the player (no closer than 1f);
+        // Check that the spawn point isn't too close to the player (no closer than 2f);
 
-        // Additionally, if the closest point on the terrain collider == the analyzed point, the analyzed point is inside the terrain. (margin of 0.15f from the edges of the collider).
+        // Additionally, if the closest point on the terrain collider == the analyzed point, the analyzed point is inside the terrain. (margin of 0.5f from the edges of the collider).
 
         Vector2 closestPoint = terrainCollider.ClosestPoint(point);
         if (Vector2.Distance(player.transform.position, point) < 2f)
         {
             return true;
         }
-        else if (Vector2.Distance(closestPoint, point) < 0.15f)
+        else if (Vector2.Distance(closestPoint, point) < 0.5f)
         {
             return true;
         }

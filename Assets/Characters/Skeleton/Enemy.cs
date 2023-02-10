@@ -12,8 +12,8 @@ public class Enemy : MonoBehaviour
     public EnemyAggro aggroArea;
     PlayerController player;
     public float knockbackForce = 500f;
-    public float movementSpeed = 300f;
-    public float minDamage = 0.1f;
+    public float movementSpeed = 350f;
+    public float minDamage = 0.15f;
     public float maxDamage = 0.25f;
     Rigidbody2D rigidBody;
     Animator animator;
